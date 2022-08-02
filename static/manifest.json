@@ -1,6 +1,6 @@
 {
-  "name": "PyPWA Weather",
-  "short_name": "PyPWA Weather",
+  "name": "Chris Hackathon August 2022",
+  "short_name": "Chris Hackathon August 2022",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#69caf8",
