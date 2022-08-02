@@ -389,7 +389,7 @@ var app = (function () {
     const addInitializer = (initializer) => {
         console.log('adding initializer', initializer);
         initializers.set([...initializers_$1, initializer]);
-        console.log('added initializer', initializer);
+        console.log('adding initializer', initializer);
     };
     postInitializers.subscribe(value => {
         postInitializers_$1 = value;
@@ -397,7 +397,7 @@ var app = (function () {
     const addPostInitializer = (initializer) => {
         console.log('adding post initializer', initializer);
         postInitializers.set([...postInitializers_$1, initializer]);
-        console.log('added post initializer', initializer);
+        console.log('adding post initializer', initializer);
     };
 
     function addClasses(element, classes) {
@@ -23911,10 +23911,10 @@ var app = (function () {
     function createCmdHandler(el) {
         // Creates a codemirror cmd handler that calls the el.evaluate when an event
         // triggers that specific cmd
-        return () => {
-            void el.evaluate();
-            return true;
+        const toggleCheckbox = ({ state, dispatch }) => {
+            return el.evaluate(state);
         };
+        return toggleCheckbox;
     }
     let initialTheme;
     function getEditorTheme(el) {
@@ -27095,15 +27095,14 @@ var app = (function () {
             this.id = `${this.id}-container`;
             this.appendChild(mainDiv);
             this.code = this.code.split('self').join(this.mount_name);
-            let registrationCode = `from pyodide import create_proxy`;
-            registrationCode += `\n${this.mount_name} = Element("${mainDiv.id}")`;
+            let registrationCode = `${this.mount_name} = Element("${mainDiv.id}")`;
             if (this.code.includes('def on_focus')) {
                 this.code = this.code.replace('def on_focus', `def on_focus_${this.mount_name}`);
-                registrationCode += `\n${this.mount_name}.element.addEventListener('focus', create_proxy(on_focus_${this.mount_name}))`;
+                registrationCode += `\n${this.mount_name}.element.addEventListener('focus', on_focus_${this.mount_name})`;
             }
             if (this.code.includes('def on_click')) {
                 this.code = this.code.replace('def on_click', `def on_click_${this.mount_name}`);
-                registrationCode += `\n${this.mount_name}.element.addEventListener('click', create_proxy(on_click_${this.mount_name}))`;
+                registrationCode += `\n${this.mount_name}.element.addEventListener('click', on_click_${this.mount_name})`;
             }
             // now that we appended and the element is attached, lets connect with the event handlers
             // defined for this widget
@@ -27158,11 +27157,10 @@ var app = (function () {
             // defined for this widget
             this.appendChild(mainDiv);
             this.code = this.code.split('self').join(this.mount_name);
-            let registrationCode = `from pyodide import create_proxy`;
-            registrationCode += `\n${this.mount_name} = Element("${mainDiv.id}")`;
+            let registrationCode = `${this.mount_name} = Element("${mainDiv.id}")`;
             if (this.code.includes('def on_keypress')) {
                 this.code = this.code.replace('def on_keypress', `def on_keypress_${this.mount_name}`);
-                registrationCode += `\n${this.mount_name}.element.addEventListener('keypress', create_proxy(on_keypress_${this.mount_name}))`;
+                registrationCode += `\n${this.mount_name}.element.addEventListener('keypress', on_keypress_${this.mount_name})`;
             }
             // TODO: For now we delay execution to allow pyodide to load but in the future this
             //       should really wait for it to load..
@@ -27245,7 +27243,7 @@ var app = (function () {
             this.src = url;
         }
         async initialize() {
-            console.log('Loading runtime...');
+            loader$1.log('Loading runtime...');
             pyodideReadyPromise = loadInterpreter(this.src);
             const pyodide = await pyodideReadyPromise;
             const newEnv = {
@@ -27257,17 +27255,17 @@ var app = (function () {
             pyodideLoaded.set(pyodide);
             // Inject the loader into the runtime namespace
             pyodide.globals.set('pyscript_loader', loader$1);
-            console.log('Runtime created...');
+            loader$1.log('Runtime created...');
             loadedEnvironments.update((value) => {
                 value[newEnv['id']] = newEnv;
             });
             // now we call all initializers before we actually executed all page scripts
-            console.log('Initializing components...');
+            loader$1.log('Initializing components...');
             for (const initializer of initializers_) {
                 await initializer();
             }
             // now we can actually execute the page scripts if we are in play mode
-            console.log('Initializing scripts...');
+            loader$1.log('Initializing scripts...');
             if (mode_ == 'play') {
                 for (const script of scriptsQueue_) {
                     script.evaluate();
@@ -27275,7 +27273,7 @@ var app = (function () {
                 scriptsQueue.set([]);
             }
             // now we call all post initializers AFTER we actually executed all page scripts
-            console.log('Running post initializers...');
+            loader$1.log('Running post initializers...');
             if (appConfig_ && appConfig_.autoclose_loader) {
                 loader$1.close();
                 console.log('------ loader closed ------');
