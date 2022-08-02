@@ -11,7 +11,7 @@ const assets = [
     "/static/pyscript/pyscript.py",
 
     "/static/pyodide/pyodide.js",
-    "/static/pyodide/packages.json",
+    "/static/pyodide/package.json",
     "/static/pyodide/pyodide_py.tar",
     "/static/pyodide/pyodide.asm.js",
     "/static/pyodide/pyodide.asm.data",
