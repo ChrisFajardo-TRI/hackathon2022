@@ -87,7 +87,10 @@ def meme(input_img):
     fontScale = 0.4
     color = (255, 255, 255)
     thickness = 1
-    text = pyodide.http.open_url("https://techy-api.vercel.app/api/text").getvalue()
+    try:
+        text = pyodide.http.open_url("https://techy-api.vercel.app/api/text").getvalue()
+    except:
+        text = "Fetch didn't work, so some dummy text here."
     for i, line in enumerate(textwrap.wrap(text, width=30)):
         coordinates = (0, 20 + 10 * i)
         img = cv2.putText(img, line, coordinates, font, fontScale, color, thickness, cv2.LINE_AA)

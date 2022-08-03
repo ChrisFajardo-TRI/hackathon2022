@@ -1,6 +1,17 @@
 const staticPyPWA = "dev-pypwa-v4"
 const assets = [
+
+    "/static/images/icons/icon-72x72.png",
+    "/static/images/icons/icon-92x96.png",
+    "/static/images/icons/icon-128x128.png",
+    "/static/images/icons/icon-144x144.png",
+    "/static/images/icons/icon-152x152.png",
+    "/static/images/icons/icon-192x192.png",
+    "/static/images/icons/icon-384x384.png",
+    "/static/images/icons/icon-512x512.png",
+
     "/static/js/pwa-scaffold.js",
+    "/static/js/get_user_media.js",
 
     "/static/python/main.py",
     "/static/python/image_processing.py",

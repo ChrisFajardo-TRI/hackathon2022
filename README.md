@@ -1,13 +1,18 @@
 # Playing with PyScript
 
+## Web Client App
+- Take a webcam image and try some image segmentation
+- HTML video/canvas (python opencv video capture doesn't work)
+
 ## Promising
-- Scientific Python
-- 
+- Scientific Python in Browser
+- Served as static site
+- Multi OS support
 
 ## Flaws
 - Slow load
 - Packages
-  - not all supported
+  - not all supported or work correctly (requests, pyTorch)
   - separately compiled and maintained
   - no version choices
 
