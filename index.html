@@ -23,8 +23,10 @@
         - numpy
         - matplotlib
         - scikit-image
+        - opencv-python
         - paths:
             - /static/python/main.py
+            - /static/python/image_processing.py
     </py-env>
 </head>
 <body>
@@ -33,7 +35,7 @@
 </py-repl>
 <div class="contentarea">
     <video id="video" autoplay muted playsinline></video>
-    <canvas id="canvas"></canvas>
+    <canvas id="canvas" hidden></canvas>
 </div>
 <div>
     <button class="button" type="button" id="button">Click Me</button>
