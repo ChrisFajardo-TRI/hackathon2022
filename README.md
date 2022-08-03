@@ -2,7 +2,7 @@
 
 ## Web Client App
 - Take a webcam image and try some image segmentation
-- HTML video/canvas (python opencv video capture doesn't work)
+- Server from this directory with ```python -m http.server
 
 ## Promising
 - Scientific Python in Browser
