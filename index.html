@@ -4,7 +4,11 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+
     <title>Chris Hackathon August 2022</title>
+
+    <link rel="stylesheet" href="/static/css/site.css"/>
+    <script defer src="/static/js/site.js"></script>
 
     <link rel="manifest" href="/static/manifest.json">
 
@@ -27,8 +31,32 @@
     </py-env>
 </head>
 <body>
- <div id="fig"></div>
-<py-script src="/static/python/main.py" output="fig"></py-script>
+<py-repl>
+
+</py-repl>
+<div id="fig"></div>
+<div class="contentarea">
+    <div class="camera">
+        <video id="video">Video stream not available.</video>
+        <button id="startbutton">Take photo</button>
+    </div>
+    <canvas id="canvas">
+    </canvas>
+    <div class="output">
+        <img id="photo" alt="The screen capture will appear in this box.">
+    </div>
+</div>
+<div>
+    <div id="fig2">
+    <py-button id="new-task-btn" label="Update">
+        from pyodide import create_proxy
+        do_stuff_with_canvas = create_proxy(do_stuff_with_canvas)
+        def on_click(evt):
+            do_stuff_with_canvas()
+    </py-button>
+    </div>
+</div>
+<py-script src="/static/python/main.py"></py-script>
 <script src="/static/js/pwa-scaffold.js"></script>
 </body>
 </html>

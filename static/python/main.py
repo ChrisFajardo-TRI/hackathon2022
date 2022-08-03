@@ -1,3 +1,5 @@
+import base64
+import io
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -6,6 +8,22 @@ from skimage.data import binary_blobs
 from skimage.exposure import rescale_intensity
 import skimage
 
+
+def do_stuff_with_canvas():
+    # canvas = js.document.getElementById("canvas")
+    # context = canvas.getContext("2d")
+    # img_data = context.getImageData(0, 0, canvas.width, canvas.height)
+    # d = np.reshape([x for x in img_data.data], (canvas.height, canvas.width, 4))
+
+    img_png = Element("photo").element.src.replace('data:image/png;base64,', '')
+    res = base64.b64decode(img_png.encode('utf-8'))
+    d = plt.imread(io.BytesIO(res))
+
+    fig, ax = plt.subplots()
+    ax.axis('off')
+    ax.imshow(d)
+
+    Element("fig2").write(fig)
 
 def main():
     rng = np.random.default_rng()
@@ -43,7 +61,7 @@ def main():
 
     # plt.show()
 
-    return fig
+    Element("fig").write(fig)
 
 
 main()
