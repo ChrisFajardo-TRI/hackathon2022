@@ -1,7 +1,7 @@
 import js
 import numpy as np
 import matplotlib.pyplot as plt
-from pyodide import create_proxy
+from pyodide.ffi import create_proxy
 
 import image_processing
 
