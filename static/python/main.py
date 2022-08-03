@@ -7,13 +7,16 @@ from pyodide.ffi import create_proxy
 
 import image_processing
 
+video = js.document.getElementById("video")
+canvas = js.document.getElementById("canvas")
+context = canvas.getContext("2d")
 
-def grab_a_video_frame():
-    video = js.document.getElementById("video")
-    canvas = js.document.getElementById("canvas")
-    context = canvas.getContext("2d")
 
+def update_video_frame():
     context.drawImage(video, 0, 0, canvas.width, canvas.height)
+
+
+def get_video_frame_data():
     img_data = context.getImageData(0, 0, canvas.width, canvas.height)
     d = np.reshape([x for x in img_data.data], (canvas.height, canvas.width, 4))
     return d
@@ -28,7 +31,7 @@ def show_image(image, div_id):
 
 
 def process(func, div_id):
-    d = grab_a_video_frame()
+    d = get_video_frame_data()
     input_img = d[:, :, :3].astype('uint8')
     start = time.time()
     out = func(input_img)
@@ -37,10 +40,12 @@ def process(func, div_id):
 
 
 def button_click(event):
+    update_video_frame()
     process(image_processing.scikit_image_rag, "fig1")
     process(image_processing.scikit_image_chan_vese, "fig2")
     process(image_processing.opencv_grabcut, "fig3")
     process(image_processing.opencv_watershed, "fig4")
+    process(image_processing.meme, "fig5")
 
 
 def setup():

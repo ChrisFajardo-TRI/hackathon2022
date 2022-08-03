@@ -1,6 +1,6 @@
-import subprocess
-freeze = subprocess.check_output("pip freeze", shell=True)
-desired_packages = [x.partition("==")[0] for x in freeze.decode().splitlines()]
-avail = subprocess.check_output("ls static/pyodide/", shell=True)
-packages_to_include = [f"/static/pyodide/{x}" for x in avail.decode().splitlines() if any([x.startswith(y) for y in desired_packages])]
-print("\n".join([f'    "{x}", ' for x in packages_to_include]))
+# run in REPL
+import micropip
+import json
+d = json.loads(micropip.freeze())
+all = [f'    \"/static/pyodide/{x["file_name"]}\",' for x in d['packages'].values()]
+print('\n'.join(all))
