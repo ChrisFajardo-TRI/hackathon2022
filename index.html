@@ -7,9 +7,6 @@
 
     <title>Chris Hackathon August 2022</title>
 
-    <link rel="stylesheet" href="/static/css/site.css"/>
-    <script defer src="/static/js/site.js"></script>
-
     <link rel="manifest" href="/static/manifest.json">
 
     <link rel="stylesheet" href="/static/pyscript/pyscript.css"/>
@@ -34,29 +31,16 @@
 <py-repl>
 
 </py-repl>
-<div id="fig"></div>
 <div class="contentarea">
-    <div class="camera">
-        <video id="video">Video stream not available.</video>
-        <button id="startbutton">Take photo</button>
-    </div>
-    <canvas id="canvas">
-    </canvas>
-    <div class="output">
-        <img id="photo" alt="The screen capture will appear in this box.">
-    </div>
+    <video id="video" autoplay muted playsinline></video>
+    <canvas id="canvas"></canvas>
 </div>
 <div>
-    <div id="fig2">
-    <py-button id="new-task-btn" label="Update">
-        from pyodide import create_proxy
-        do_stuff_with_canvas = create_proxy(do_stuff_with_canvas)
-        def on_click(evt):
-            do_stuff_with_canvas()
-    </py-button>
-    </div>
+    <button class="button" type="button" id="button">Click Me</button>
+    <div id="fig2"></div>
 </div>
 <py-script src="/static/python/main.py"></py-script>
+<script async src="/static/js/get_user_media.js"></script>
 <script src="/static/js/pwa-scaffold.js"></script>
 </body>
 </html>
