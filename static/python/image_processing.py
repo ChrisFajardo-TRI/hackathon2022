@@ -80,6 +80,7 @@ def scikit_image_rag(input_img):
 
 if __name__ == "__main__":
     from time import sleep
+    import time
     import matplotlib.pyplot as plt
 
     cap = cv2.VideoCapture(1)
@@ -88,10 +89,30 @@ if __name__ == "__main__":
     cap.release()
 
     frame = cv2.flip(frame, 1)
-    frame = cv2.resize(frame, (128, 128))
+    frame = cv2.resize(frame, (320, 240))
 
     img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB )
+
+    fig, ((ax0, ax1), (ax2, ax3)) = plt.subplots(2, 2)
+
+    start = time.time()
     out = scikit_image_rag(img)
-    plt.imshow(out)
+    print(f"{scikit_image_rag.__name__} took {time.time() - start} seconds")
+    ax0.imshow(out)
+
+    start = time.time()
+    out1 = scikit_image_chan_vese(img)
+    print(f"{scikit_image_chan_vese.__name__} took {time.time() - start} seconds")
+    ax1.imshow(out1)
+
+    start = time.time()
+    out2 = opencv_grabcut(img)
+    print(f"{opencv_grabcut.__name__} took {time.time() - start} seconds")
+    ax2.imshow(out2)
+
+    start = time.time()
+    out3 = opencv_watershed(img)
+    print(f"{opencv_watershed.__name__} took {time.time() - start} seconds")
+    ax3.imshow(out3)
+
     plt.show()
-    print(img.shape)
