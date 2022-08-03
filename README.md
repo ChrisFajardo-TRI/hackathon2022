@@ -2,7 +2,7 @@
 
 ## Web Client App
 - Take a webcam image and try some image segmentation
-- Server from this directory with ```python -m http.server
+- Server from this directory with ```python -m http.server```
 
 ## Promising
 - Scientific Python in Browser
