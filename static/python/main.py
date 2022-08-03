@@ -1,3 +1,5 @@
+import time
+
 import js
 import numpy as np
 import matplotlib.pyplot as plt
@@ -25,15 +27,20 @@ def show_image(image, div_id):
     Element(div_id).write(fig)
 
 
-def process(div_id):
+def process(func, div_id):
     d = grab_a_video_frame()
     input_img = d[:, :, :3].astype('uint8')
-    out = image_processing.scikit_image_chan_vese(input_img)
+    start = time.time()
+    out = func(input_img)
+    print(f"{func.__name__} took {time.time() - start} seconds")
     show_image(out, div_id)
 
 
 def button_click(event):
-    process("fig2")
+    process(image_processing.scikit_image_rag, "fig1")
+    process(image_processing.scikit_image_chan_vese, "fig2")
+    process(image_processing.opencv_grabcut, "fig3")
+    process(image_processing.opencv_watershed, "fig4")
 
 
 def setup():
