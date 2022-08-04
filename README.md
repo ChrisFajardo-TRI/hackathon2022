@@ -1,8 +1,13 @@
 # Playing with PyScript
 
 ## Web Client App
+- Serve from this directory with ```python -m http.server```
 - Take a webcam image and try some image segmentation
-- Server from this directory with ```python -m http.server```
+- Supports Progressive Web App (Can install as Desktop App or Save to Home Screen on iOS) and caching.
+
+### Notes
+- iOS needs HTTPS to use webcam (I used ngrok to serve)
+- JS for webcam because opencv cv2.VideoCapture() doesn't work
 
 ## Promising
 - Scientific Python in Browser
