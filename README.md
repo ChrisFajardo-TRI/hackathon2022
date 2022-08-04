@@ -6,7 +6,7 @@
 
 ## Promising
 - Scientific Python in Browser
-- Served as static site
+- Served as static site, runs on client
 - Multi OS support
 
 ## Flaws
@@ -15,6 +15,7 @@
   - not all supported or work correctly (requests, pyTorch)
   - separately compiled and maintained
   - no version choices
+- Little docs
 
 ## References
 
